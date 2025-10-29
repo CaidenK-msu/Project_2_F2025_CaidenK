@@ -7,4 +7,4 @@ Dataset Name:
 
 Source Link:
 Video games sales. (n.d.). Zenodo.
-- https://zenodo.org/records/5898311?
+- https://zenodo.org/records/5898311
