@@ -1,6 +1,6 @@
-streamlit
-pandas
-numpy
-altair
-plotly
-pydeck
+streamlit==1.38.0
+pandas==2.2.1
+numpy==1.26.4
+altair==5.2.0
+plotly==5.20.0
+pydeck==0.9.1
