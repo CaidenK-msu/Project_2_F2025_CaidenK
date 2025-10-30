@@ -2,7 +2,7 @@
 
 # Documentation
 Step 1:
-# Dataset Information
+Dataset Information
 
 Dataset Name: 
 - Video Game Sales (Global)
