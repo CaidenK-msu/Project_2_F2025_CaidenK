@@ -3,6 +3,7 @@ import pandas as pd
 import streamlit as st
 from pathlib import Path
 
+
 @st.cache_data(show_spinner=False)
 def load_data(local_path: str | None = None, url: str | None = None) -> pd.DataFrame:
 """Load CSV from local path or URL with light standardization.
@@ -15,12 +16,14 @@ elif url:
 df = pd.read_csv(url)
 else:
 return pd.DataFrame()
-
+# Normalize column names
 df.columns = [c.strip().replace(" ", "_").lower() for c in df.columns]
 return df
 except Exception as e:
 st.warning(f"Could not load data: {e}")
 return pd.DataFrame()
+
+
 
 
 def kpis(df: pd.DataFrame, numeric_col: str | None = None, category_col: str | None = None):
