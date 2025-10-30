@@ -4,7 +4,7 @@ st.header("Professional Bio")
 
 st.write(
   """
-**Your Name**
+**Caiden Kopcik**
 _(Replace this section with your 3–6 sentence professional summary.)_
   
 **Highlights (3–5 bullets):**
