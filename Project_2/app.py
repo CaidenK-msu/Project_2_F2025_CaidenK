@@ -13,6 +13,7 @@ with col1:
 with col2:
   st.title("Mini Analytics Portfolio")
   st.caption("Bio • EDA Gallery • Dashboard • Future Work")
+  st.write("**Caiden Kopcik** — [LinkedIn](www.linkedin.com/in/caiden-kopcik) · ckopcik@msudenver.com")
 
 st.markdown(
   """
