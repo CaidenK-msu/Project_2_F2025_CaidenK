@@ -22,16 +22,16 @@ Resource(s):
 
 ChatGPT
   
-    https://chatgpt.com/ 
+  https://chatgpt.com/ 
 
 (Vega-Altair: Declarative Visualization in Python — Vega-Altair 5.5.0 documentation. 
   
-    https://altair-viz.github.io/
+  https://altair-viz.github.io/
 
 Pandas documentation — pandas 2.3.3 documentation. pandas - Python Data Analysis Library.
   
-    https://pandas.pydata.org/docs/
+  https://pandas.pydata.org/docs/
 
 NumPy documentation. NumPy. 
   
-    https://numpy.org/doc/
+  https://numpy.org/doc/
