@@ -26,26 +26,39 @@ num_default = num_options.index('global_sales') if 'global_sales' in num_options
 cat = st.selectbox("Primary category", cat_options, index=cat_default)
 num = st.selectbox("Primary numeric", num_options, index=num_default)
 
-# Optional datetime
-time_cols_all = [c for c in df.columns if pd.to_datetime(df[c], errors='coerce').notna().sum() > 0]
-time_col = st.selectbox("Optional date/time column", ["(none)"] + time_cols_all)
+# ---------- Robust optional datetime handling ----------
+time_candidates = []
+for c in df.columns:
+    s = pd.to_datetime(df[c], errors="coerce", utc=True)
+    if s.notna().mean() >= 0.60:
+        time_candidates.append(c)
+
+time_col = st.selectbox("Optional date/time column", ["(none)"] + time_candidates)
+
+time_mask = None
 if time_col != "(none)":
-    df[time_col] = pd.to_datetime(df[time_col], errors='coerce')
-else:
-    time_col = None
+    s = pd.to_datetime(df[time_col], errors="coerce", utc=True)
+    valid = s.dropna()
+    if valid.empty:
+        st.info("Selected time column doesn't contain valid dates; date filter disabled.")
+    else:
+        min_d = valid.min().to_pydatetime()
+        max_d = valid.max().to_pydatetime()
+        if min_d == max_d:
+            st.info("Date column has only one unique timestamp; range filter skipped.")
+        else:
+            date_range = st.slider("Date range", min_value=min_d, max_value=max_d, value=(min_d, max_d))
+            start, end = pd.Timestamp(date_range[0], tz="UTC"), pd.Timestamp(date_range[1], tz="UTC")
+            time_mask = s.between(start, end)
+            
+# -------------------------------------------------------------------------
 
 st.subheader("Filters")
 selected_cats = st.multiselect("Filter categories", sorted(df[cat].dropna().unique().tolist())[:50])
 if selected_cats:
     df = df[df[cat].isin(selected_cats)]
-
-if time_col:
-    min_d, max_d = pd.to_datetime(df[time_col].min()), pd.to_datetime(df[time_col].max())
-    if pd.isna(min_d) or pd.isna(max_d):
-        st.info("Selected time column has invalid dates; date filter disabled.")
-    else:
-        date_range = st.slider("Date range", min_value=min_d, max_value=max_d, value=(min_d, max_d))
-        df = df[(df[time_col] >= date_range[0]) & (df[time_col] <= date_range[1])]
+if time_mask is not None:
+    df = df[time_mask]
 
 st.subheader("KPIs")
 metrics = kpis(df, numeric_col=num, category_col=cat)
