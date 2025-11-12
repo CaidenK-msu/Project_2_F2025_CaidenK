@@ -1,20 +1,30 @@
 import streamlit as st
 
-st.header("Professional Bio")
+st.Title("Professional Bio")
 
-st.write(
-  """
+st.markdown("""
 **Caiden Kopcik**
-_(Replace this section with your 3–6 sentence professional summary.)_
-  
-**Highlights (3–5 bullets):**
-- _(Add tools/skills here)_
-- _(Add coursework/projects)_
 
-**Visualization philosophy:**
-_(1–2 sentences on clarity, accessibility, ethics.)_
-"""
-)
+Hello!
+-  I am a full-stack developer, and data visulization student at Metropolitan State University of Denver. 
+  My current job is to make interactive dashboards and analytics solutions that employ stuff like Python and Streamlit together.
+  I have found more interest in transforming raw data/datasets into clear, accessible visuals that tell stories and help with real world decision(s).
+""")
+
+st.subheader("Highlights")
+st.markdown("""
+- I have obtained experienced with languages/tools like Python, Pandas, Plotly, Streamlit, etc. 
+- I Know the use of cloud tools, such as, AWS, Terraform, Azure IoT 
+- I am Skilled in data wrangling, dashboards, and machine learning pipelines  
+- Building academic/professional portfolio(s) focused more on data analytics
+""")
+
+st.subheader("My Visualization Approach")
+st.markdown("""
+I try to design visualizations so that they are more clear, inclusive, and data-driven.  
+That means things like color-blind–safe palettes, labeled axes, and transparent communication of uncertainty.  
+Good visualization should help everyone explore insights, and not overwhelm them with noise.
+""")
 
 with st.expander("Optional: Profile Image + Alt‑text"):
   st.caption("Add `assets/profile.jpg` and describe it briefly below.")
