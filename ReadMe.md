@@ -1,5 +1,8 @@
 
-**Caiden Kopcik** — [LinkedIn](https://www.linkedin.com/in/caiden-kopcik) 
+**Caiden Kopcik** 
+
+— [LinkedIn](https://www.linkedin.com/in/caiden-kopcik) 
+  
   Email: ckopcik@msudenver.com
 
 ## About ##
