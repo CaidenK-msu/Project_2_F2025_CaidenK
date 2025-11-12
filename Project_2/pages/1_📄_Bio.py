@@ -2,6 +2,8 @@ import streamlit as st
 
 st.Title("Professional Bio")
 
+st.image("assets/IMG_2154.jpg", caption="Caiden Kopcik", use_column_width=True)
+
 st.markdown("""
 **Caiden Kopcik**
 
@@ -25,7 +27,3 @@ I try to design visualizations so that they are more clear, inclusive, and data-
 That means things like color-blind–safe palettes, labeled axes, and transparent communication of uncertainty.  
 Good visualization should help everyone explore insights, and not overwhelm them with noise.
 """)
-
-with st.expander("Optional: Profile Image + Alt‑text"):
-  st.caption("Add `assets/profile.jpg` and describe it briefly below.")
-# st.image("assets/profile.jpg", use_column_width=True, caption="Alt: headshot of student ...")
