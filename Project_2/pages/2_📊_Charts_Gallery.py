@@ -99,7 +99,7 @@ box = alt.Chart(df).mark_boxplot().encode(
 st.altair_chart(box.properties(height=320), use_container_width=True)
 st.caption("Source: Zenodo Video Games Sales · Units in millions")
 st.markdown("**Observation(s):**")
-st.text_area("Obs - Box", "- Action and Sports categories show the widest spread in sales (largest IQR).", height=80, key="obs_box")
+st.text_area("Obs - Box", "- Action and Sports categories show the widest spread in sales.", height=80, key="obs_box")
 
 # (Optional) Keep your overall notes area if you like
 st.markdown("**Overall Notes (optional, 3–6 bullets):**")
