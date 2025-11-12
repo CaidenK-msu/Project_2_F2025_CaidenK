@@ -1,13 +1,12 @@
 import streamlit as st
 
-st.title("👤 Professional Bio")
+st.title("Professional Bio")
 
 img_path = Path("assets/IMG_2154.jpg")
 if img_path.exists():
-    st.image(str(img_path), use_column_width=True,
-             caption="Alt: portrait photo of Caiden Kopcik")
+    st.image(str(img_path), caption="Caiden Kopcik", use_column_width=True)
 else:
-    st.warning(f"Image not found at {img_path.resolve()}")
+    st.warning(f"Image not found at {img_path}")
 
 st.markdown("""
 **Caiden Kopcik**
