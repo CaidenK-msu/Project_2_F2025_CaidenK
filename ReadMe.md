@@ -1,13 +1,13 @@
 ***Project 2***
 
+## About ##
+This multi-page Streamlit app showcases exploratory data analysis and is a created small dashboard on a dataset with more than 100 rows of data, but I have added the option to provide your own data. Although I did add this feature along-side with it; I am not sure that is work 100% fully.
+
 **Caiden Kopcik** 
 
 [LinkedIn](https://www.linkedin.com/in/caiden-kopcik) 
   
 Email: ckopcik@msudenver.com
-
-## About ##
-This multi-page Streamlit app showcases exploratory data analysis and is a created small dashboard on a dataset with more than 100 rows of data, but I have added the option to provide your own data. Although I did add this feature along-side with it; I am not sure that is work 100% fully.
 
 ### Pages ###
 (Here are the pages/directory listed below)
