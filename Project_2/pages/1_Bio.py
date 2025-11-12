@@ -9,8 +9,8 @@ if img_path.exists():
 else:
     st.warning(f"Image not found at {img_path}")
 
+st.subheader("Caiden Kopcik")
 st.markdown("""
-**Caiden Kopcik**
 
 Hello!
 -  I am a full-stack developer, and data visulization student at Metropolitan State University of Denver. 
