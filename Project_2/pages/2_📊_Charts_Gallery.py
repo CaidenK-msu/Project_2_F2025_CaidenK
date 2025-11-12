@@ -33,14 +33,14 @@ cat_cols = [c for c in df.columns if df[c].dtype == 'object']
 if not numeric_cols or not cat_cols:
     st.info("For best results, include at least one numeric and one categorical column.")
 
-#Defaults tailored for vgsales.csv but user can change
+# Defaults tailored for vgsales.csv but user can change
 num_default_index = numeric_cols.index('global_sales') if 'global_sales' in numeric_cols else 0
 cat_default_index = cat_cols.index('genre') if 'genre' in cat_cols else 0
 
 num = st.selectbox("Numeric column (for hist/box)", numeric_cols, index=num_default_index)
 cat = st.selectbox("Category column (for bar/box)", cat_cols, index=cat_default_index)
 
-#Histogram
+# 1) Histogram
 st.subheader("1) Histogram")
 st.text_input("Question explored (Histogram)", f"What does the distribution of {num} look like?", key="q_hist")
 st.caption("How to read: x = values of the numeric column; y = count. Look for skew/outliers.")
@@ -51,8 +51,10 @@ hist = alt.Chart(df).mark_bar().encode(
 ).interactive()
 st.altair_chart(hist.properties(height=320), use_container_width=True)
 st.caption("Source: Zenodo Video Games Sales · Units in millions")
+st.markdown("**Observation(s):**")
+st.text_area("Obs - Histogram", "- The distribution of global_sales is strongly right-skewed.", height=80, key="obs_hist")
 
-#Bar by Category
+# 2) Bar by Category
 st.subheader("2) Bar by Category (mean of numeric)")
 st.text_input("Question explored (Bar)", f"Which {cat} has the highest average {num}?", key="q_bar")
 st.caption("How to read: bar height = average of the numeric column for each category; compare across bars.")
@@ -63,8 +65,10 @@ bar = alt.Chart(df).mark_bar().encode(
 ).interactive()
 st.altair_chart(bar.properties(height=320), use_container_width=True)
 st.caption("Source: Zenodo Video Games Sales · Units in millions")
+st.markdown("**Observation(s):**")
+st.text_area("Obs - Bar", "- Sports and Platform genres tend to have higher mean sales than Strategy/Adventure.", height=80, key="obs_bar")
 
-# Scatter
+# 3) Scatter
 st.subheader("3) Scatter Plot (numeric vs numeric)")
 num2_candidates = [c for c in numeric_cols if c != num]
 num2 = st.selectbox("Second numeric for scatter", num2_candidates) if len(num2_candidates) else None
@@ -78,9 +82,12 @@ if num2:
     ).interactive()
     st.altair_chart(scat.properties(height=320), use_container_width=True)
     st.caption("Source: Zenodo Video Games Sales · Units in millions")
+    st.markdown("**Observation(s):**")
+    st.text_area("Obs - Scatter", "- There is an inverse relationship between rank and global_sales.", height=80, key="obs_scatter")
 else:
     st.info("Select a second numeric column to enable the scatter plot.")
 
+# 4) Box Plot
 st.subheader("4) Box Plot by Category")
 st.text_input("Question explored (Box)", f"How does the distribution of {num} vary by {cat}?", key="q_box")
 st.caption("How to read: box shows distribution (median/IQR) of the numeric column per category; dots are outliers.")
@@ -91,6 +98,15 @@ box = alt.Chart(df).mark_boxplot().encode(
 )
 st.altair_chart(box.properties(height=320), use_container_width=True)
 st.caption("Source: Zenodo Video Games Sales · Units in millions")
+st.markdown("**Observation(s):**")
+st.text_area("Obs - Box", "- Action and Sports categories show the widest spread in sales (largest IQR).", height=80, key="obs_box")
 
-st.markdown("**Observations (3–6 bullets):**")
-st.text_area("Notes", "- It seems that the distribution of global_sales is strongly right-skewed\n- Sports and Platform genres dominate in average global sales, while Strategy and Adventure show much lower averages.\n - The Scatter plot results suggest an inverse relationship between rank and global_sales", height=140)
+# (Optional) Keep your overall notes area if you like
+st.markdown("**Overall Notes (optional, 3–6 bullets):**")
+st.text_area(
+    "Notes",
+    "- Most games sell under 1M units; a few blockbusters dominate totals.\n"
+    "- Genre and platform choices strongly influence average sales.\n"
+    "- Right-skewed distribution implies long-tail dynamics in the market.\n",
+    height=120
+)
