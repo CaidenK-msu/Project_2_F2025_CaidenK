@@ -3,24 +3,33 @@ import pandas as pd
 import altair as alt
 from utils import load_data, kpis
 
-st.subheader("Filters")
+st.header("Interactive Dashboard")
 
-selected_cats = st.multiselect(
-    "Filter categories",
-    sorted(df[cat].dropna().unique().tolist())[:50]
-)
+src = st.radio("Data source", ["Local CSV (data/vgsales.csv)", "CSV URL"], horizontal=True)
+url = st.text_input("CSV URL") if src == "CSV URL" else None
+local_default = "data/vgsales.csv"
+
+with st.spinner("Loading data…"):
+    df = load_data(local_default if src.startswith("Local") else None, url)
+
+if df.empty:
+    st.warning("No data loaded. Add a CSV to data/ or paste a URL above.")
+    st.stop()
+
+st.subheader("Setup your fields")
+cat_options = [c for c in df.columns if df[c].dtype == 'object']
+num_options = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
+
+cat_default = cat_options.index('platform') if 'platform' in cat_options else 0
+num_default = num_options.index('global_sales') if 'global_sales' in num_options else 0
+
+cat = st.selectbox("Primary category", cat_options, index=cat_default)
+num = st.selectbox("Primary numeric", num_options, index=num_default)
+
+st.subheader("Filters")
+selected_cats = st.multiselect("Filter categories", sorted(df[cat].dropna().unique().tolist())[:50])
 if selected_cats:
     df = df[df[cat].isin(selected_cats)]
-
-num_min = float(df[num].min())
-num_max = float(df[num].max())
-rng = st.slider(
-    f"Filter by {num} range",
-    min_value=num_min,
-    max_value=num_max,
-    value=(num_min, num_max)
-)
-df = df[df[num].between(rng[0], rng[1])]
 
 st.subheader("KPIs")
 metrics = kpis(df, numeric_col=num, category_col=cat)
@@ -35,8 +44,8 @@ left, right = st.columns(2)
 with left:
     st.markdown("**Bar: mean by category**")
     bar = alt.Chart(df).mark_bar().encode(
-        x=alt.X(f"{cat}:N", sort='-y', title=cat),
-        y=alt.Y(f"mean({num}):Q", title=f"Mean {num}"),
+        x=alt.X(f"{cat}:N", sort='-y'),
+        y=alt.Y(f"mean({num}):Q"),
         tooltip=[cat, alt.Tooltip(f"mean({num}):Q", title="Mean")]
     ).properties(height=360)
     st.altair_chart(bar, use_container_width=True)
@@ -44,26 +53,14 @@ with left:
 with right:
     st.markdown("**Histogram: distribution of numeric**")
     hist = alt.Chart(df).mark_bar().encode(
-        x=alt.X(f"{num}:Q", bin=alt.Bin(maxbins=30), title=num),
-        y=alt.Y('count()', title='Count'),
+        x=alt.X(f"{num}:Q", bin=alt.Bin(maxbins=30)),
+        y='count()',
         tooltip=['count()']
     ).properties(height=360)
     st.altair_chart(hist, use_container_width=True)
 
 st.subheader("Narrative Insights (3–6 bullets)")
-try:
-    by_cat = df.groupby(cat, dropna=False)[num].mean().sort_values(ascending=False)
-    top_cat = by_cat.index[0] if len(by_cat) else None
-    insight_lines = [
-        f"- **Top {cat} by mean {num}**: {top_cat} ({by_cat.iloc[0]:.2f})" if top_cat is not None else "- Not enough data to compute category means.",
-        f"- **Rows after filters**: {len(df)} across **{df[cat].nunique()}** {cat} groups.",
-        f"- **Central tendency**: mean {num} = {df[num].mean():.2f}, median = {df[num].median():.2f}.",
-    ]
-except Exception:
-    insight_lines = ["- Add filters to see insights."]
-
-preset = "\n".join(insight_lines + ["- …", "- …"])
-st.text_area("Notes (edit as needed)", preset, height=160)
+st.text_area("Notes", "- …\n- …", height=140)
 
 st.subheader("Reproducibility")
 st.write("**Data source:** Zenodo Video Games Sales (https://zenodo.org/records/5898311)")
