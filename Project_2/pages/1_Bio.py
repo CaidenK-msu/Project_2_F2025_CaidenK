@@ -3,7 +3,7 @@ from pathlib import Path
 
 st.title("Professional Bio")
 
-img_path = Path("assets/IMG_2154.jpg")
+img_path = Path("Project_2/assets/IMG_2154.jpg")
 if img_path.exists():
     st.image(str(img_path), caption="Caiden Kopcik", use_column_width=True)
 else:
