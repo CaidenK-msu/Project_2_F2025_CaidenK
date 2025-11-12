@@ -4,8 +4,6 @@ from pathlib import Path
 
 st.set_page_config(page_title="Mini Analytics Portfolio", page_icon="📚", layout="wide")
 
-
-#Brand header
 col1, col2 = st.columns([1,6])
 with col1:
   if Path("assets/logo.png").exists():
@@ -13,14 +11,13 @@ with col1:
 with col2:
   st.title("Mini Analytics Portfolio")
   st.caption("Bio • EDA Gallery • Dashboard • Future Work")
-  st.write("**Caiden Kopcik** — [LinkedIn](www.linkedin.com/in/caiden-kopcik) · ckopcik@msudenver.com")
+  st.write("**Caiden Kopcik** [LinkedIn] - (www.linkedin.com/in/caiden-kopcik) - ckopcik@msudenver.com")
 
 st.markdown(
   """
-  This multipage Streamlit app showcases exploratory data analysis and a small dashboard on a dataset with more than 100 rows.
+   This multi-page Streamlit application was/is created to showcase data analysis and develop a small dashboard on a dataset with more than 100 rows.
   **Navigation**: Use the left sidebar.
   **Data**: Place a CSV in `data/` (e.g., `vgsales.csv`) or paste a CSV URL on the pages.
-  
   
   **Accessibility**: We aim for color‑blind‑safe palettes, labeled axes/units, and concise alt‑text.
   """
