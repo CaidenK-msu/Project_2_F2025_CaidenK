@@ -60,7 +60,7 @@ with right:
     st.altair_chart(hist, use_container_width=True)
 
 st.subheader("Narrative Insights (3–6 bullets)")
-st.text_area("Notes", "- …\n- …", height=140)
+st.text_area("Notes", "- The dataset includes 16,598 game records across 31 platforms, showing wide coverage of the global gaming market.\n - Game Boy (GB), NES, and PS2 platforms achieve the highest average global sales.\n - These results suggest platform popularity and game library size are major contributors to total sales volume.\n", height=140)
 
 st.subheader("Reproducibility")
 st.write("**Data source:** Zenodo Video Games Sales (https://zenodo.org/records/5898311)")
