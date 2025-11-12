@@ -26,39 +26,10 @@ num_default = num_options.index('global_sales') if 'global_sales' in num_options
 cat = st.selectbox("Primary category", cat_options, index=cat_default)
 num = st.selectbox("Primary numeric", num_options, index=num_default)
 
-# ---------- Robust optional datetime handling ----------
-time_candidates = []
-for c in df.columns:
-    s = pd.to_datetime(df[c], errors="coerce", utc=True)
-    if s.notna().mean() >= 0.60:
-        time_candidates.append(c)
-
-time_col = st.selectbox("Optional date/time column", ["(none)"] + time_candidates)
-
-time_mask = None
-if time_col != "(none)":
-    s = pd.to_datetime(df[time_col], errors="coerce", utc=True)
-    valid = s.dropna()
-    if valid.empty:
-        st.info("Selected time column doesn't contain valid dates; date filter disabled.")
-    else:
-        min_d = valid.min().to_pydatetime()
-        max_d = valid.max().to_pydatetime()
-        if min_d == max_d:
-            st.info("Date column has only one unique timestamp; range filter skipped.")
-        else:
-            date_range = st.slider("Date range", min_value=min_d, max_value=max_d, value=(min_d, max_d))
-            start, end = pd.Timestamp(date_range[0], tz="UTC"), pd.Timestamp(date_range[1], tz="UTC")
-            time_mask = s.between(start, end)
-            
-# -------------------------------------------------------------------------
-
 st.subheader("Filters")
 selected_cats = st.multiselect("Filter categories", sorted(df[cat].dropna().unique().tolist())[:50])
 if selected_cats:
     df = df[df[cat].isin(selected_cats)]
-if time_mask is not None:
-    df = df[time_mask]
 
 st.subheader("KPIs")
 metrics = kpis(df, numeric_col=num, category_col=cat)
@@ -94,3 +65,4 @@ st.text_area("Notes", "- …\n- …", height=140)
 st.subheader("Reproducibility")
 st.write("**Data source:** Zenodo Video Games Sales (https://zenodo.org/records/5898311)")
 st.write("**Last refreshed:** See KPI timestamp above.")
+
