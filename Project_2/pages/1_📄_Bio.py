@@ -1,8 +1,13 @@
 import streamlit as st
 
-st.Title("Professional Bio")
+st.title("👤 Professional Bio")
 
-st.image("assets/IMG_2154.jpg", caption="Caiden Kopcik", use_column_width=True)
+img_path = Path("assets/IMG_2154.jpg")
+if img_path.exists():
+    st.image(str(img_path), use_column_width=True,
+             caption="Alt: portrait photo of Caiden Kopcik")
+else:
+    st.warning(f"Image not found at {img_path.resolve()}")
 
 st.markdown("""
 **Caiden Kopcik**
@@ -19,6 +24,7 @@ st.markdown("""
 - I Know the use of cloud tools, such as, AWS, Terraform, Azure IoT 
 - I am Skilled in data wrangling, dashboards, and machine learning pipelines  
 - Building academic/professional portfolio(s) focused more on data analytics
+
 """)
 
 st.subheader("My Visualization Approach")
@@ -26,4 +32,5 @@ st.markdown("""
 I try to design visualizations so that they are more clear, inclusive, and data-driven.  
 That means things like color-blind–safe palettes, labeled axes, and transparent communication of uncertainty.  
 Good visualization should help everyone explore insights, and not overwhelm them with noise.
+
 """)
