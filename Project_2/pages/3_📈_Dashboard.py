@@ -26,10 +26,19 @@ num_default = num_options.index('global_sales') if 'global_sales' in num_options
 cat = st.selectbox("Primary category", cat_options, index=cat_default)
 num = st.selectbox("Primary numeric", num_options, index=num_default)
 
+# ---- Filters ----
 st.subheader("Filters")
+
+# 1) Category filter (already present)
 selected_cats = st.multiselect("Filter categories", sorted(df[cat].dropna().unique().tolist())[:50])
 if selected_cats:
     df = df[df[cat].isin(selected_cats)]
+
+# 2) NEW: Numeric range slider (second filter to satisfy rubric)
+num_min = float(df[num].min())
+num_max = float(df[num].max())
+low, high = st.slider(f"Filter by {num} range", min_value=num_min, max_value=num_max, value=(num_min, num_max))
+df = df[df[num].between(low, high)]
 
 st.subheader("KPIs")
 metrics = kpis(df, numeric_col=num, category_col=cat)
@@ -44,8 +53,8 @@ left, right = st.columns(2)
 with left:
     st.markdown("**Bar: mean by category**")
     bar = alt.Chart(df).mark_bar().encode(
-        x=alt.X(f"{cat}:N", sort='-y'),
-        y=alt.Y(f"mean({num}):Q"),
+        x=alt.X(f"{cat}:N", sort='-y', title=cat),
+        y=alt.Y(f"mean({num}):Q", title=f"Mean {num}"),
         tooltip=[cat, alt.Tooltip(f"mean({num}):Q", title="Mean")]
     ).properties(height=360)
     st.altair_chart(bar, use_container_width=True)
@@ -53,14 +62,21 @@ with left:
 with right:
     st.markdown("**Histogram: distribution of numeric**")
     hist = alt.Chart(df).mark_bar().encode(
-        x=alt.X(f"{num}:Q", bin=alt.Bin(maxbins=30)),
-        y='count()',
+        x=alt.X(f"{num}:Q", bin=alt.Bin(maxbins=30), title=num),
+        y=alt.Y('count()', title='Count'),
         tooltip=['count()']
     ).properties(height=360)
     st.altair_chart(hist, use_container_width=True)
 
 st.subheader("Narrative Insights (3–6 bullets)")
-st.text_area("Notes", "- The dataset includes 16,598 game records across 31 platforms, showing wide coverage of the global gaming market.\n - Game Boy (GB), NES, and PS2 platforms achieve the highest average global sales.\n - These results suggest platform popularity and game library size are major contributors to total sales volume.\n", height=140)
+st.text_area(
+    "Notes",
+    "- The dataset includes ~16,600 game records across many platforms.\n"
+    "- Game Boy (GB), NES, and PS2 show some of the highest average global sales.\n"
+    "- Sales are right-skewed: a few hits drive most of the total.\n"
+    "- Filtering by platform and sales range reveals how concentration changes across groups.\n",
+    height=160
+)
 
 st.subheader("Reproducibility")
 st.write("**Data source:** Zenodo Video Games Sales (https://zenodo.org/records/5898311)")
