@@ -26,3 +26,8 @@ _[Live streamlit application](https://project2f2025caidenk-bfcsmyaxnhdzzgrhpqhgz
 
 ## Tech Stack ##
 Python - Streamlit - Pandas - Altair - NumPy
+
+## How to Run ##
+```bash
+pip install -r requirements.txt
+streamlit run app.py
