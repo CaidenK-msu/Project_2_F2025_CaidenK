@@ -29,8 +29,8 @@ st.markdown("""
 
 st.subheader("My Visualization Approach")
 st.markdown("""
-I try to design visualizations so that they are more clear, inclusive, and data-driven.  
-That means things like color-blind–safe palettes, labeled axes, and transparent communication of uncertainty.  
-Good visualization should help everyone explore insights, and not overwhelm them with noise.
+-   I try to design visualizations so that they are more clear, inclusive, and data-driven.  
+    That means things like color-blind–safe palettes, labeled axes, and transparent communication of uncertainty.  
+    Good visualization should help everyone explore insights, and not overwhelm them with noise.
 
 """)
