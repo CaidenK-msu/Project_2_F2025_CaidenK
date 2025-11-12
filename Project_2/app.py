@@ -16,7 +16,9 @@ with col2:
 st.markdown(
   """
    This multi-page Streamlit application was/is created to showcase data analysis and develop a small dashboard on a dataset with more than 100 rows.
+  
   **Navigation**: Use the left sidebar.
+  
   **Data**: Place a CSV in `data/` (e.g., `vgsales.csv`) or paste a CSV URL on the pages.
   
   **Accessibility**: We aim for color‑blind‑safe palettes, labeled axes/units, and concise alt‑text.
