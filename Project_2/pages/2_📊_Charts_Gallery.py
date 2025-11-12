@@ -93,4 +93,4 @@ st.altair_chart(box.properties(height=320), use_container_width=True)
 st.caption("Source: Zenodo Video Games Sales · Units in millions")
 
 st.markdown("**Observations (3–6 bullets):**")
-st.text_area("Notes", "- …\n- …\n- …", height=140)
+st.text_area("Notes", "- It seems that the distribution of global_sales is strongly right-skewed\n - Sports and Platform genres dominate in average global sales, while Strategy and Adventure show much lower averages.\n - The Scatter plot results suggest an inverse relationship between rank and global_sales", height=140)
