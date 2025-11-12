@@ -38,3 +38,8 @@ Python - Streamlit - Pandas - Altair - NumPy
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+```
+
+*Note (reference)*
+
+- AI (ChatGPT) was used to help with the creation of this project in various methods/ways.
