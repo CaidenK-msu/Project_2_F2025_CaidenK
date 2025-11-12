@@ -1,37 +1,27 @@
-# Project 2
+**Caiden Kopcik** — [LinkedIn](https://www.linkedin.com/in/caiden-kopcik) 
+  Email: ckopcik@msudenver.com
 
-# Documentation
-Step 1:
-Dataset Information
+## About ##
+This multi-page Streamlit app showcases exploratory data analysis and is a created small dashboard on a dataset with more than 100 rows of data, but I have added the option to provide your own data. Although I did add this feature along-side with it; I am not sure that is work 100% fully.
 
-Dataset Name: 
-- Video Game Sales (Global)
+### Pages ###
+(Here are the pages/directory listed below)
 
-Source Link:
+- **Bio**
+- **Charts Gallery** (EDA with 4 chart types + explainers)
+- **Dashboard** (filters + KPIs + linked visuals)
+- **Future Work**
 
-Video games sales. (n.d.). Zenodo.
-- https://zenodo.org/records/5898311
+## Accessibility ##
+Tried my best to have Color-blind-safe palettes, labeled axes/units, and concise alt-text.
 
-Number Of Rows:
-- 16,598
+## Live App ##
+_[Live streamlit application](https://project2f2025caidenk-bfcsmyaxnhdzzgrhpqhgze.streamlit.app/)_
 
-Short Description:
-- This dataset should contain the information on video game titles that have sold over at least 100,000 copies worldwide. It seems to include attributes like name, platform, release year, genre, publisher, and sales in North America, Europe, Japan, Other region sales, and Global sales (total).
+## Dataset ##
+- **Source:** [Zenodo Video Game Sales](https://zenodo.org/records/5898311)  
+- **Rows:** ~16,598  
+- **Notes:** Global sales by platform/genre/publisher/region.
 
-Resource(s):
-
-ChatGPT
-  
-  https://chatgpt.com/ 
-
-(Vega-Altair: Declarative Visualization in Python — Vega-Altair 5.5.0 documentation. 
-  
-  https://altair-viz.github.io/
-
-Pandas documentation — pandas 2.3.3 documentation. pandas - Python Data Analysis Library.
-  
-  https://pandas.pydata.org/docs/
-
-NumPy documentation. NumPy. 
-  
-  https://numpy.org/doc/
+## Tech Stack ##
+Python - Streamlit - Pandas - Altair - NumPy
